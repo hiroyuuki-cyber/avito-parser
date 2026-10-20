@@ -162,18 +162,19 @@ class MonitoringService:
             if result.outcome in ("blocked", "error"):
                 return {"new": 0, "drops": 0, "errors": 1, "outcome": result.outcome, "engine": engine_used}
 
-            if result.items: original_count = len(result.items)
+            if result.items: 
+               original_count = len(result.items)
 
-    result.items = [
-        item for item in result.items
-        if is_chechnya_item(item)
-    ]
+               result.items = [
+                   item for item in result.items
+                   if is_chechnya_item(item)
+               ]
 
-    logger.info(
-        "Фильтр Чечни: оставлено %s из %s объявлений",
-        len(result.items),
-        original_count,
-    )
+               logger.info(
+                   "Фильтр Чечни: оставлено %s из %s объявлений",
+                   len(result.items),
+                   original_count,
+               )
 
 if result.items:
     # Привязываем search_query_id
