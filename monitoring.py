@@ -162,8 +162,7 @@ class MonitoringService:
             if result.outcome in ("blocked", "error"):
                 return {"new": 0, "drops": 0, "errors": 1, "outcome": result.outcome, "engine": engine_used}
 
-            if result.items:
-    original_count = len(result.items)
+            if result.items: original_count = len(result.items)
 
     result.items = [
         item for item in result.items
