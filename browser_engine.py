@@ -53,7 +53,7 @@ class AvitoBrowserEngine:
             user_agent=config.scraper.user_agent,
             locale="ru-RU",
             timezone_id="Europe/Moscow",
-            geolocation={"latitude": 55.7558, "longitude": 37.6173}, # Москва
+            geolocation={"latitude": 43.3178, "longitude": 45.6982}, # Грозный
             permissions=["geolocation"],
             color_scheme="dark"
         )
