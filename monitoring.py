@@ -19,6 +19,7 @@ from coordination import lease
 from outbox import outbox_worker
 from observability import observed, configure_logging
 configure_logging()
+from region_filter import is_chechnya_item
 logger = logging.getLogger("AvitoMonitoring")
 
 class MonitoringService:
@@ -162,9 +163,23 @@ class MonitoringService:
                 return {"new": 0, "drops": 0, "errors": 1, "outcome": result.outcome, "engine": engine_used}
 
             if result.items:
-                # Привязываем search_query_id
-                for it in result.items:
-                    it.search_query_id = search.id
+    original_count = len(result.items)
+
+    result.items = [
+        item for item in result.items
+        if is_chechnya_item(item)
+    ]
+
+    logger.info(
+        "Фильтр Чечни: оставлено %s из %s объявлений",
+        len(result.items),
+        original_count,
+    )
+
+if result.items:
+    # Привязываем search_query_id
+    for it in result.items:
+        it.search_query_id = search.id
 
                 save_res = await db.save_items(result.items)
                 new_count = save_res["new_count"]
