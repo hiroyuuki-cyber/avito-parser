@@ -9,4 +9,4 @@ RUN mkdir -p data exports logs config && chown -R avito:avito data exports logs 
 USER avito
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=3)"
-CMD ["python", "web_server.py"]
+CMD ["python", "start_railway.py"]
